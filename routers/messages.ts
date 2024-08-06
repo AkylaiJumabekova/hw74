@@ -10,11 +10,11 @@ messagesRouter.get('/', async (req, res) => {
         const messages: Message[] = [];
         const fileNames = await fs.readdir(messagesDirectory);
 
-        fileNames.slice(-5).forEach(async (fileName) => {
+        for (const fileName of fileNames.slice(-5)) {
             const fileContents = await fs.readFile(`${messagesDirectory}/${fileName}`);
             const message = JSON.parse(fileContents.toString()) as Message;
             messages.push(message);
-        });
+        };
 
         return res.status(200).send(messages);
 
